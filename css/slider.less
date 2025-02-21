@@ -1,0 +1,179 @@
+@arrow-size: 64px;
+@active-color: rgb(0, 86, 179);
+@inactive-color: #bbb;
+@border-radius: 10px;
+@video-border-radius: 30px;
+
+
+/* Слайдер: */
+#slider { 
+ position: relative;
+ text-align: center;
+ top: 5px;
+}
+
+
+#slides article{ 
+ width: 25%;
+ height: 750px;
+ float: left;
+ position: relative;
+ overflow: hidden;
+}
+
+#slides .image{ 
+ width: 400%;
+ line-height: 0;
+ display: flex;
+ transition: all 800ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+}
+
+#overflow{ 
+ overflow: hidden; 
+}
+
+
+#desktop:checked ~ #slider { 
+ max-width: 1500px; 
+ margin: 0 auto ; 
+}
+
+
+/*настройка переключения и положения для стрелок*/
+.arrow-styles(@index, @left-arrow, @right-arrow) {
+ #switch@{index}:checked ~ #controls label:nth-child(@{left-arrow}),
+ #switch@{index}:checked ~ #controls label:nth-child(@{right-arrow}) {
+  float: left;
+  margin: 0 0 0 -85px; 
+  display: block;
+  height: @arrow-size;
+  width: @arrow-size;
+ }
+ #switch@{index}:checked ~ #controls label:nth-child(@{right-arrow}) {
+  float: right;
+  margin: 0 -85px 0 0;
+  display: block;
+  height: @arrow-size;
+  width: @arrow-size;
+ }
+}
+
+.generate-arrow-styles();
+
+.generate-arrow-styles() {
+ .arrow-styles(1, 4, 2);
+ .arrow-styles(2, 1, 3);
+ .arrow-styles(3, 2, 4);
+ .arrow-styles(4, 3, 1);
+}
+
+
+
+label, a{ 
+ cursor: pointer;
+}
+
+.all input{ 
+ display: none;
+}
+
+/*позиция изображения при активации переключателя*/
+#switch1:checked ~ #slides .image{
+ margin-left: 0;
+}
+
+#switch2:checked ~ #slides .image{
+ margin-left: -100%;
+}
+
+#switch3:checked ~ #slides .image{
+ margin-left: -200%;
+}
+
+#switch4:checked ~ #slides .image{
+ margin-left: -300%;
+}
+
+
+#controls{ 
+ margin: -25% 0 0 0;
+ width: 100%;
+ height: 10px;
+}
+
+#active label{ 
+ border-radius: @border-radius; 
+ display: inline-block; 
+ width: 15px;
+ height: 15px;
+ background: @inactive-color;
+}
+
+#active{ 
+ margin: 25% 0 0;
+ text-align: center;
+}
+
+#active label:hover{ 
+ background: @active-color;
+ border-color: #777 !important; 
+}
+
+/*цвет активного лейбла при активации чекбокса*/
+#switch1:checked ~ #active label:nth-child(1),
+#switch2:checked ~ #active label:nth-child(2),
+#switch3:checked ~ #active label:nth-child(3),
+#switch4:checked ~ #active label:nth-child(4){
+ background: @active-color;
+ border-color: @active-color !important;
+}
+
+
+#controls label:hover{ 
+ opacity: 0.6;
+ transition: opacity 0.2s ease-out;
+}
+
+
+article img, article video { 
+ border-radius: @video-border-radius; 
+ object-fit: cover; 
+}
+
+.text {
+ text-align: left;
+ position: absolute; 
+ top: 10px; 
+ left: 20px;
+ color: white; 
+ background-color: rgba(0, 0, 0, 0); 
+ padding: 10px; 
+ font-family: 'Arial', sans-serif;
+ font-size: 30px;
+ line-height: 1.3; 
+}
+.main-video {
+ display: flex;
+ justify-content: center; 
+ align-items: center; 
+ height: 100%; 
+}
+
+.videos {
+ overflow: hidden; 
+ width: 100%; 
+ max-width: 100%; 
+ border-radius: @video-border-radius; 
+}
+
+article img {
+ width: 100%;
+ height: 100%;
+}
+
+article video {
+ width: 98%;
+ height: 100%;
+ margin-left: 5px;
+ margin-right: 5px;
+}
